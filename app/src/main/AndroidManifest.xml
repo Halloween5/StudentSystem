@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.example.studentsystem">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.StudentSystem"
+        android:usesCleartextTraffic="true"
+        tools:replace="android:icon"
+        tools:targetApi="31">
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".teacherView.teacherMainActivity"
+            android:label="学生管理系统"/>
+        <activity
+            android:name=".teacherView.mineActivity"
+            android:label="我的"/>
+        <activity
+            android:name=".teacherView.manage.classManageActivity"
+            android:label="班级管理"/>
+        <activity
+            android:name=".teacherView.manage.studentManageActivity"
+            android:label="学生管理"/>
+        <activity
+            android:name=".teacherView.manage.leaveManageActivity"
+            android:label="请假管理"/>
+        <activity
+            android:name=".teacherView.manage.signManageActivity"
+            android:label="签到管理"/>
+        <activity
+            android:name=".teacherView.manage.courseManageActivity"
+            android:label="课程管理"/>
+        <activity
+            android:name=".teacherView.manageAdd.classManageAddActivity"
+            android:label="添加班级信息"/>
+        <activity
+            android:name=".teacherView.manageAdd.studentManageAddActivity"
+            android:label="添加学生信息"/>
+        <activity
+            android:name=".teacherView.manageAdd.courseManageAddActivity"
+            android:label="添加课程信息"/>
+        <activity
+            android:name=".teacherView.manageAdd.classManageModifyActivity"
+            android:label="修改班级信息"/>
+        <activity
+            android:name=".studentView.studentMainActivity"
+            android:label="学生端个人中心"/>
+        <activity
+            android:name=".studentView.leaveActivity"
+            android:label="请假记录"/>
+        <activity
+            android:name=".studentView.signActivity"
+            android:label="我的考勤"/>
+        <activity
+            android:name=".studentView.add.leaveAddActivity"
+            android:label="我要请假"/>
+        <activity
+            android:name=".studentView.add.signAddActivity"
+            android:label="申请考勤表"/>
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths"/>
+        </provider>
+    </application>
+
+</manifest>
