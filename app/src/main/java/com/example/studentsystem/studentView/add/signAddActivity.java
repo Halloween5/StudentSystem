@@ -125,7 +125,7 @@ public class signAddActivity extends AppCompatActivity {
                     finish();
                     Log.d("HttpPostExample", "POST request was successful.");
                 } else {
-                    Toast.makeText(signAddActivity.this, "账号密码有误", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(signAddActivity.this, "error", Toast.LENGTH_SHORT).show();
                     Log.d("HttpPostExample", "POST request failed. Response Code: " + response.code());
                 }
             }

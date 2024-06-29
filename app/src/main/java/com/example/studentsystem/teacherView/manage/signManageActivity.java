@@ -1,9 +1,14 @@
 package com.example.studentsystem.teacherView.manage;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
@@ -14,17 +19,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.studentsystem.R;
 import com.example.studentsystem.adapter.signManageAdapter;
 import com.example.studentsystem.bean.signInfo;
-import com.example.studentsystem.studentView.signActivity;
 import com.example.studentsystem.utils.HttpUtil;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -40,19 +41,34 @@ public class signManageActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private signManageAdapter adapter;
     private List<signInfo> signList = null;
+    private EditText course;
+    private Button button;
+    private String course_num;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_manage);
         initComponent();
-        getData("nn");
+        Search();
     }
 
     private void initComponent(){
         ActionBar actionBar = getSupportActionBar();
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
+        course = findViewById(R.id.course);
+        button = findViewById(R.id.button);
         recyclerView = findViewById(R.id.recyclerview);
+    }
+
+    private void Search(){
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                course_num = course.getText().toString();
+                getData(course_num);
+            }
+        });
     }
 
     private void getData(String c_num){
@@ -74,16 +90,16 @@ public class signManageActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     String responseBody = response.body().string();
                     signList = dataProcess(responseBody);
-                    runOnUiThread(() -> {
-                        if (signList != null) {
+                    runOnUiThread(() ->{
+                        if (signList != null && signList.size() != 0) {
                             setupRecyclerView(signList);
                         } else {
-                            Toast.makeText(signManageActivity.this, "数据处理错误", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(signManageActivity.this, "该课程没有签到记录", Toast.LENGTH_SHORT).show();
                         }
                     });
                     Log.d("HttpPostExample", "POST request was successful.");
                 } else {
-                    runOnUiThread(() -> Toast.makeText(signManageActivity.this, "error", Toast.LENGTH_SHORT).show());
+                    runOnUiThread(() -> Toast.makeText(signManageActivity.this, "该课程没有签到记录", Toast.LENGTH_SHORT).show());
                     Log.d("HttpPostExample", "POST request failed. Response Code: " + response.code());
                 }
             }
@@ -95,14 +111,19 @@ public class signManageActivity extends AppCompatActivity {
         adapter = new signManageAdapter(this, this, data);
         recyclerView.setLayoutManager(new LinearLayoutManager(signManageActivity.this));
         adapter.setOnItemClickListener(new signManageAdapter.OnRecyclerViewItemClickListener() {
-            public void onItemClick(RecyclerView parent, View view, int position) {
-                if (signList != null && signList.get(position).getState() == 1) {
-                    SweetAlertDialog dialog = new SweetAlertDialog(signManageActivity.this, SweetAlertDialog.PROGRESS_TYPE);
+            @Override
+            public void onItemClick(RecyclerView recyclerView, View view, int position) {
+                if (signList != null && signList.get(position).getState() == 0) {
+                    SweetAlertDialog dialog = new SweetAlertDialog(signManageActivity.this, SweetAlertDialog.SUCCESS_TYPE);
                     dialog.setContentText("是否已读？");
-                    dialog.setConfirmButton("确认", (v) -> {
-                        signList.get(position).setState(1);
-                        adapter.notifyDataSetChanged();
-                        dialog.cancel();
+                    dialog.setConfirmButton("确认", new SweetAlertDialog.OnSweetClickListener() {
+                        @Override
+                        public void onClick(SweetAlertDialog sweetAlertDialog) {
+                            signList.get(position).setState(1);
+                            haveRead(position);
+                            adapter.notifyDataSetChanged();
+                            dialog.cancel();
+                        }
                     });
                     dialog.setCancelButton("取消", (v) -> {
                         dialog.cancel();
@@ -112,7 +133,7 @@ public class signManageActivity extends AppCompatActivity {
             }
         });
         recyclerView.setAdapter(adapter);
-    }
+        }
 
     private List<signInfo> dataProcess(String responseBody) {
         try {
@@ -126,7 +147,6 @@ public class signManageActivity extends AppCompatActivity {
                 for (int j = 0; j < imageArray.length(); j++) {
                     images.add(imageArray.getString(j));
                 }
-
                 signInfo sign = new signInfo();
                 sign.setSid(signObject.getString("sid"));
                 sign.setSname(signObject.getString("sname"));
@@ -137,14 +157,42 @@ public class signManageActivity extends AppCompatActivity {
                 sign.setTime(time);
                 sign.setState(signObject.getInt("state"));
                 data.add(sign);
-                return data;
             }
+            return data;
         } catch (JSONException e) {
             e.printStackTrace();
         }
         return null;
     }
 
+    private void haveRead(int position){
+        String url = "http://47.113.197.249:8081/api/v2/sign/read";
+        JSONObject jsonInput = new JSONObject();
+        try {
+            jsonInput.put("course", course_num);
+            jsonInput.put("sid", signList.get(position).getSid());
+            jsonInput.put("time", signList.get(position).getTime());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        HttpUtil.getInstance().post(url, jsonInput.toString(), new Callback(){
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    runOnUiThread(() ->{ Toast.makeText(signManageActivity.this, "已经审批", Toast.LENGTH_SHORT).show();});
+                    Log.d("HttpPostExample", "POST request was successful.");
+                } else {
+                    runOnUiThread(() -> Toast.makeText(signManageActivity.this, "error", Toast.LENGTH_SHORT).show());
+                    Log.d("HttpPostExample", "POST request failed. Response Code: " + response.code());
+                }
+            }
+        });
+    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -155,11 +203,5 @@ public class signManageActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
         return true;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        getData("nn");
     }
 }

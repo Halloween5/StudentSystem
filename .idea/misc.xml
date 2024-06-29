@@ -17,11 +17,14 @@
         <entry key="..\:/StudentSystem/app/src/main/res/layout/activity_class_manage_modify.xml" value="0.18645833333333334" />
         <entry key="..\:/StudentSystem/app/src/main/res/layout/activity_course_manage.xml" value="0.22760416666666666" />
         <entry key="..\:/StudentSystem/app/src/main/res/layout/activity_course_manage_add.xml" value="0.22760416666666666" />
-        <entry key="..\:/StudentSystem/app/src/main/res/layout/activity_leave_add.xml" value="0.1484375" />
+        <entry key="..\:/StudentSystem/app/src/main/res/layout/activity_init.xml" value="0.29957264957264956" />
+        <entry key="..\:/StudentSystem/app/src/main/res/layout/activity_leave.xml" value="0.20208333333333334" />
+        <entry key="..\:/StudentSystem/app/src/main/res/layout/activity_leave_add.xml" value="0.25" />
         <entry key="..\:/StudentSystem/app/src/main/res/layout/activity_leave_manage.xml" value="0.18675213675213675" />
         <entry key="..\:/StudentSystem/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/StudentSystem/app/src/main/res/layout/activity_mine.xml" value="0.22760416666666666" />
-        <entry key="..\:/StudentSystem/app/src/main/res/layout/activity_sign.xml" value="0.14" />
+        <entry key="..\:/StudentSystem/app/src/main/res/layout/activity_register.xml" value="0.203125" />
+        <entry key="..\:/StudentSystem/app/src/main/res/layout/activity_sign.xml" value="0.33" />
         <entry key="..\:/StudentSystem/app/src/main/res/layout/activity_sign_add.xml" value="0.33" />
         <entry key="..\:/StudentSystem/app/src/main/res/layout/activity_sign_manage.xml" value="0.22760416666666666" />
         <entry key="..\:/StudentSystem/app/src/main/res/layout/activity_student_main.xml" value="0.22" />
@@ -29,11 +32,15 @@
         <entry key="..\:/StudentSystem/app/src/main/res/layout/activity_student_manage_add.xml" value="0.22760416666666666" />
         <entry key="..\:/StudentSystem/app/src/main/res/layout/activity_teacher_main.xml" value="0.3651041666666667" />
         <entry key="..\:/StudentSystem/app/src/main/res/layout/class_manage_list_item.xml" value="0.33" />
+        <entry key="..\:/StudentSystem/app/src/main/res/layout/course_manage_list_item.xml" value="0.3651041666666667" />
         <entry key="..\:/StudentSystem/app/src/main/res/layout/edit_dialog_bottom.xml" value="0.18645833333333334" />
         <entry key="..\:/StudentSystem/app/src/main/res/layout/fragment_class_manage.xml" value="0.3651041666666667" />
+        <entry key="..\:/StudentSystem/app/src/main/res/layout/leave_manage_list_item.xml" value="0.3651041666666667" />
         <entry key="..\:/StudentSystem/app/src/main/res/layout/sign_manage_list_item.xml" value="0.33" />
         <entry key="..\:/StudentSystem/app/src/main/res/layout/student_manage_list_item.xml" value="0.25" />
+        <entry key="..\:/StudentSystem/app/src/main/res/menu/add_menu.xml" value="0.203125" />
         <entry key="..\:/StudentSystem/app/src/main/res/menu/class_menu.xml" value="0.22864583333333333" />
+        <entry key="..\:/StudentSystem/app/src/main/res/menu/mine_menu.xml" value="0.22" />
         <entry key="..\:/StudentSystem/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.2075" />
       </map>
     </option>

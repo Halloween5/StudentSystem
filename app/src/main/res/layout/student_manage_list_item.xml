@@ -5,6 +5,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginStart="5dp"
     android:layout_marginEnd="5dp"
+    android:layout_marginBottom="5dp"
+    android:layout_marginTop="5dp"
     android:background="@drawable/item_background">
 
     <TextView
@@ -13,9 +15,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="5dp"
+        android:layout_marginStart="5dp"
         android:id="@+id/text_stu_num"
         android:text="学号："
         android:textSize="16dp"
+        android:textStyle="bold"
         android:textColor="@color/black"/>
     <TextView
         android:layout_width="wrap_content"
@@ -30,9 +34,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/text_stu_num"
         android:layout_marginTop="5dp"
+        android:layout_marginStart="5dp"
         android:id="@+id/text_name"
         android:text="姓名："
         android:textSize="16dp"
+        android:textStyle="bold"
         android:textColor="@color/black"/>
     <TextView
         android:layout_width="wrap_content"
@@ -46,10 +52,14 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/text_name"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="5dp"
         android:layout_marginTop="5dp"
+        android:layout_marginStart="5dp"
         android:id="@+id/text_class_num"
         android:text="班级编号："
         android:textSize="16dp"
+        android:textStyle="bold"
         android:textColor="@color/black"/>
     <TextView
         android:layout_width="wrap_content"
@@ -58,29 +68,4 @@
         app:layout_constraintStart_toEndOf="@id/text_class_num"
         app:layout_constraintTop_toTopOf="@id/text_class_num"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_class_num"
-        android:layout_marginTop="5dp"
-        android:id="@+id/text_time"
-        android:text="登记时间："
-        android:textSize="16dp"
-        android:textColor="@color/black"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/time"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/text_class_num" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/state"
-        app:layout_constraintTop_toTopOf="@id/text_stu_num"
-        app:layout_constraintBottom_toBottomOf="@id/text_time"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginEnd="5dp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

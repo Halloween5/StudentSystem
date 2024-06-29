@@ -8,8 +8,6 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.studentsystem.R;
-import com.example.studentsystem.teacherView.manage.classManageActivity;
-import com.example.studentsystem.teacherView.teacherMainActivity;
 
 public class studentMainActivity extends AppCompatActivity {
     private Button leave, sign;
@@ -38,4 +36,9 @@ public class studentMainActivity extends AppCompatActivity {
             }
         });
    }
+
+    @Override
+    public void onBackPressed() {
+
+    }
 }

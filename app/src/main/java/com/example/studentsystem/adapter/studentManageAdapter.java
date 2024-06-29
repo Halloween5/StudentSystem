@@ -1,5 +1,6 @@
 package com.example.studentsystem.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,10 +19,11 @@ public class studentManageAdapter extends RecyclerView.Adapter<studentManageAdap
     private List<studentInfo> data;
     private Context mContext;
     private View view;
+    private Activity activity;
     private RecyclerView recyclerView;
-    private OnRecyclerViewItemClickListener onRecyclerViewItemClickListener;
-    public studentManageAdapter(Context context, List<studentInfo> data){
+    public studentManageAdapter(Context context, Activity activity, List<studentInfo> data){
         this.mContext = context;
+        this.activity = activity;
         this.data = data;
     }
 
@@ -33,32 +35,30 @@ public class studentManageAdapter extends RecyclerView.Adapter<studentManageAdap
         return new ViewHolder(view);
     }
 
-    public interface OnRecyclerViewItemClickListener {
-        void onItemClick(RecyclerView parent, View view,int position);
-    }
-    public void setOnItemClickListener(OnRecyclerViewItemClickListener onRecyclerViewItemClickListener) {
-        this.onRecyclerViewItemClickListener = onRecyclerViewItemClickListener;
-    }
-
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {}
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        holder.c_num.setText(data.get(position).getClassNum() + "");
+        holder.name.setText(data.get(position).getName());
+        holder.s_num.setText(data.get(position).getId());
+    }
 
     @Override
     public int getItemCount() {
-        return data.size();
+        if(data != null)
+            return data.size();
+        else
+            return 0;
     }
 
     protected static class ViewHolder extends RecyclerView.ViewHolder{
         private TextView s_num;
         private TextView name;
         private TextView c_num;
-        private TextView time;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             s_num = itemView.findViewById(R.id.s_num);
             name = itemView.findViewById(R.id.name);
             c_num = itemView.findViewById(R.id.c_num);
-            time = itemView.findViewById(R.id.time);
         }
     }
 }

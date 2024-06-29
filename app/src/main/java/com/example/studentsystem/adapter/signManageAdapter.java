@@ -12,13 +12,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.studentsystem.R;
 import com.example.studentsystem.bean.signInfo;
-import com.example.studentsystem.studentView.signActivity;
 import com.example.studentsystem.utils.CommonUtils;
 
 import java.util.List;
@@ -47,7 +47,7 @@ public class signManageAdapter extends RecyclerView.Adapter<signManageAdapter.Vi
     }
 
     public interface OnRecyclerViewItemClickListener {
-        void onItemClick(RecyclerView parent, View view,int position);
+        void onItemClick(RecyclerView recyclerView, View view, int position);
     }
     public void setOnItemClickListener(signManageAdapter.OnRecyclerViewItemClickListener onRecyclerViewItemClickListener) {
         this.onRecyclerViewItemClickListener = onRecyclerViewItemClickListener;
@@ -88,6 +88,14 @@ public class signManageAdapter extends RecyclerView.Adapter<signManageAdapter.Vi
                         .start();
             }
         });
+        if (onRecyclerViewItemClickListener != null) {
+            holder.item.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    onRecyclerViewItemClickListener.onItemClick(recyclerView, view, holder.getAdapterPosition());
+                }
+            });
+        }
     }
 
     @Override
@@ -99,6 +107,7 @@ public class signManageAdapter extends RecyclerView.Adapter<signManageAdapter.Vi
     }
 
     protected static class ViewHolder extends RecyclerView.ViewHolder{
+        private ConstraintLayout item;
         private GridLayout gridLayout;
         private TextView c_num;
         private TextView s_num;
@@ -108,6 +117,7 @@ public class signManageAdapter extends RecyclerView.Adapter<signManageAdapter.Vi
         private TextView state;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            item = itemView.findViewById(R.id.item);
             gridLayout = itemView.findViewById(R.id.img);
             c_num = itemView.findViewById(R.id.c_num);
             s_num = itemView.findViewById(R.id.s_num);

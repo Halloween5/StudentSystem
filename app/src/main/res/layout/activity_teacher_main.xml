@@ -13,31 +13,31 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:background="@mipmap/teacher"
-        android:layout_marginTop="150dp" />
+        android:layout_marginTop="130dp" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/button1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/grey_border"
+        android:layout_marginTop="70dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/button2"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintWidth_percent="0.33">
-       <ImageView
-           android:id="@+id/classmanage"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           app:layout_constraintStart_toStartOf="parent"
-           app:layout_constraintEnd_toEndOf="parent"
-           app:layout_constraintTop_toTopOf="parent"
-           android:background="@mipmap/blackboard"/>
+        app:layout_constraintTop_toBottomOf="@+id/image"
+        app:layout_constraintWidth_percent="0.5">
+        <ImageView
+            android:id="@+id/coursemanage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="@mipmap/book"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/classmanage"
-            android:text="班级管理"
+            app:layout_constraintTop_toBottomOf="@id/coursemanage"
+            android:text="课程管理"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:textColor="@color/black"
@@ -50,11 +50,11 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/grey_border"
+        android:layout_marginTop="70dp"
         app:layout_constraintStart_toEndOf="@+id/button1"
-        app:layout_constraintEnd_toStartOf="@+id/button3"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintWidth_percent="0.33" >
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/image"
+        app:layout_constraintWidth_percent="0.5" >
         <ImageView
             android:id="@+id/studentmanage"
             android:layout_width="wrap_content"
@@ -74,10 +74,6 @@
             android:textStyle="bold"
             android:layout_marginTop="2dp"/>
 
-        <FrameLayout
-            android:id="@+id/fragment_container"
-            android:layout_width="0dp"
-            android:layout_height="0dp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -85,43 +81,11 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/grey_border"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/button2"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintWidth_percent="0.33">
-
-        <ImageView
-            android:id="@+id/coursemanage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@mipmap/book"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:text="课程管理"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/coursemanage" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/button4"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="1dp"
-        android:background="@drawable/grey_border"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/button1"
-        app:layout_constraintTop_toBottomOf="@id/button1"
-        app:layout_constraintWidth_percent="0.33">
+        app:layout_constraintEnd_toStartOf="@+id/button4"
+        app:layout_constraintTop_toBottomOf="@+id/button1"
+        app:layout_constraintWidth_percent="0.5">
+
         <ImageView
             android:id="@+id/signmanage"
             android:layout_width="wrap_content"
@@ -143,15 +107,14 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/button5"
+        android:id="@+id/button4"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="1dp"
         android:background="@drawable/grey_border"
-        app:layout_constraintStart_toEndOf="@id/button4"
-        app:layout_constraintEnd_toEndOf="@id/button2"
-        app:layout_constraintTop_toBottomOf="@id/button2"
-        app:layout_constraintWidth_percent="0.33">
+        app:layout_constraintStart_toEndOf="@+id/button3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button2"
+        app:layout_constraintWidth_percent="0.5">
         <ImageView
             android:id="@+id/leavemanage"
             android:layout_width="wrap_content"
@@ -165,36 +128,6 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/leavemanage"
             android:text="请假管理"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:layout_marginTop="2dp"/>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/button6"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="1dp"
-        android:background="@drawable/grey_border"
-        app:layout_constraintStart_toEndOf="@+id/button5"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/button3"
-        app:layout_constraintWidth_percent="0.33">
-        <ImageView
-            android:id="@+id/mine"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:background="@mipmap/mine"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/mine"
-            android:text="我的"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:textColor="@color/black"

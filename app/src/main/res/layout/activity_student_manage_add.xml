@@ -129,7 +129,7 @@
             android:id="@+id/state"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toEndOf="@id/stateinfo"
+            app:layout_constraintStart_toEndOf="@id/text_state"
             app:layout_constraintTop_toTopOf="@id/stateinfo"
             app:layout_constraintBottom_toBottomOf="@id/stateinfo"
             android:entries="@array/state"/>

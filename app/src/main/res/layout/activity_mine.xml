@@ -1,6 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="15dp"
+            android:id="@+id/text_t_name"
+            android:layout_marginStart="10dp"
+            android:text="教师姓名："
+            android:textStyle="bold"
+            android:textSize="18dp"
+            android:textColor="@color/black"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/name"
+            android:text="暂无"
+            android:textSize="18dp"
+            app:layout_constraintStart_toEndOf="@id/text_t_name"
+            app:layout_constraintTop_toTopOf="@id/text_t_name"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_t_name"
+            android:layout_marginTop="15dp"
+            android:id="@+id/text_c_num"
+            android:layout_marginStart="10dp"
+            android:text="班级编号："
+            android:textStyle="bold"
+            android:textSize="18dp"
+            android:textColor="@color/black"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/c_num"
+            android:textSize="18dp"
+            android:text="暂无"
+            app:layout_constraintStart_toEndOf="@id/text_c_num"
+            app:layout_constraintTop_toTopOf="@id/text_c_num"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -36,9 +36,6 @@
             android:name=".teacherView.mineActivity"
             android:label="我的"/>
         <activity
-            android:name=".teacherView.manage.classManageActivity"
-            android:label="班级管理"/>
-        <activity
             android:name=".teacherView.manage.studentManageActivity"
             android:label="学生管理"/>
         <activity
@@ -51,17 +48,11 @@
             android:name=".teacherView.manage.courseManageActivity"
             android:label="课程管理"/>
         <activity
-            android:name=".teacherView.manageAdd.classManageAddActivity"
-            android:label="添加班级信息"/>
-        <activity
             android:name=".teacherView.manageAdd.studentManageAddActivity"
             android:label="添加学生信息"/>
         <activity
             android:name=".teacherView.manageAdd.courseManageAddActivity"
             android:label="添加课程信息"/>
-        <activity
-            android:name=".teacherView.manageAdd.classManageModifyActivity"
-            android:label="修改班级信息"/>
         <activity
             android:name=".studentView.studentMainActivity"
             android:label="学生端个人中心"/>
@@ -77,6 +68,12 @@
         <activity
             android:name=".studentView.add.signAddActivity"
             android:label="申请考勤表"/>
+        <activity
+            android:name=".login.registerActivity"
+            android:label="注册"/>
+        <activity
+            android:name=".login.initActivity"
+            android:label="初始化个人信息"/>
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.fileProvider"

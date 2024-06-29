@@ -11,8 +11,10 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.studentsystem.login.registerActivity;
 import com.example.studentsystem.studentView.studentMainActivity;
 import com.example.studentsystem.teacherView.teacherMainActivity;
 import com.example.studentsystem.utils.HttpUtil;
@@ -33,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText uid, pwd;
     private Button enterButton;
     private ImageView forDisplay;
+    private TextView register;
     private int[] image = {R.mipmap.teacher,R.mipmap.student};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         student = findViewById(R.id.student);
         uid = findViewById(R.id.uid);
         pwd = findViewById(R.id.password);
+        register = findViewById(R.id.register);
         enterButton = findViewById(R.id.enter);
         forDisplay = findViewById(R.id.image);
         forDisplay.setImageResource(image[0]);
@@ -81,6 +85,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void enterMain(){
+        register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent;
+                intent = new Intent(MainActivity.this, registerActivity.class);
+                startActivity(intent);
+            }
+        });
         enterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -125,8 +137,8 @@ public class MainActivity extends AppCompatActivity {
                     String responseBody = response.body().string();
                     Gson gson = new Gson();
                     JsonObject jsonResponse = gson.fromJson(responseBody, JsonObject.class);
-                    if (jsonResponse.get("data").equals(-1)) {
-                        Toast.makeText(MainActivity.this, "账号密码有误", Toast.LENGTH_SHORT).show();
+                    if (jsonResponse.get("data").toString().equals("-1")) {
+                        runOnUiThread(() -> Toast.makeText(MainActivity.this, "账号密码有误", Toast.LENGTH_SHORT).show());
                     }else {
                         String data = jsonResponse.get("data").getAsString();
                         Intent intent;

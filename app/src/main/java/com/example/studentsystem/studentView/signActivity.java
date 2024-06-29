@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
@@ -16,31 +19,38 @@ import com.example.studentsystem.R;
 import com.example.studentsystem.adapter.signManageAdapter;
 import com.example.studentsystem.bean.signInfo;
 import com.example.studentsystem.studentView.add.signAddActivity;
+import com.example.studentsystem.teacherView.manage.signManageActivity;
 import com.example.studentsystem.utils.HttpUtil;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
 public class signActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
+    private List<signInfo> signList = null;
     private signManageAdapter adapter;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign);
         initComponent();
-        //getData("nn");
+        getData();
     }
 
     private void initComponent(){
@@ -50,49 +60,73 @@ public class signActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerview);
     }
 
-    private void getData(String c_num){
-        String url = "http://47.113.197.249:8081/api/v2/sign/queryClass";
+    private void getData() {
+        String url = "http://47.113.197.249:8081/api/v2/sign/get";
         JSONObject jsonInput = new JSONObject();
-        try {
-            jsonInput.put("course", c_num);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        HttpUtil.getInstance().post(url, jsonInput.toString(), new Callback(){
+        HttpUtil.getInstance().post(url, jsonInput.toString(), new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 e.printStackTrace();
             }
-
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 if (response.isSuccessful()) {
                     String responseBody = response.body().string();
-                    try {
-                        JSONObject jsonResponse = new JSONObject(responseBody);
-                        String dataJson = jsonResponse.getJSONArray("data").toString();
-                        Gson gson = new Gson();
-                        Type listType = new TypeToken<List<signInfo>>() {
-                        }.getType();
-                        List<signInfo> data = gson.fromJson(dataJson, listType);
-                        initRecycleView(data);
-                        Log.d("HttpPostExample", "POST request was successful.");
-                    }catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+                    signList = dataProcess(responseBody);
+                    runOnUiThread(() ->{
+                        if (signList != null && signList.size() != 0) {
+                            setupRecyclerView(signList);
+                        } else {
+                            Toast.makeText(signActivity.this, "该课程没有签到记录", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    Log.d("HttpPostExample", "POST request was successful.");
                 } else {
-                    Toast.makeText(signActivity.this, "error", Toast.LENGTH_SHORT).show();
-                    Log.d("HttpPostExample", "POST request failed. Response Code: " + response.code());
+                    runOnUiThread(() -> {
+                        Toast.makeText(signActivity.this, "error", Toast.LENGTH_SHORT).show();
+                        Log.d("HttpPostExample", "POST request failed. Response Code: " + response.code());
+                    });
                 }
             }
         });
     }
 
-    private void initRecycleView(List<signInfo> data){
+    private void setupRecyclerView(List<signInfo> data) {
         Collections.reverse(data);
         adapter = new signManageAdapter(this, this, data);
         recyclerView.setLayoutManager(new LinearLayoutManager(signActivity.this));
         recyclerView.setAdapter(adapter);
+    }
+
+    private List<signInfo> dataProcess(String responseBody) {
+        try {
+            JSONObject jsonResponse = new JSONObject(responseBody);
+            JSONArray dataArray = jsonResponse.getJSONArray("data");
+            List<signInfo> data = new ArrayList<>();
+            for (int i = 0; i < dataArray.length(); i++) {
+                JSONObject signObject = dataArray.getJSONObject(i);
+                JSONArray imageArray = new JSONArray(signObject.getString("image"));
+                List<String> images = new ArrayList<>();
+                for (int j = 0; j < imageArray.length(); j++) {
+                    images.add(imageArray.getString(j));
+                }
+                signInfo sign = new signInfo();
+                sign.setSid(signObject.getString("sid"));
+                sign.setSname(signObject.getString("sname"));
+                sign.setCourse(signObject.getString("course"));
+                sign.setClass_num(signObject.getInt("classNum"));
+                sign.setImage(images);
+                String timeString = signObject.getString("time");
+                LocalDateTime time = LocalDateTime.parse(timeString, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+                sign.setTime(time);
+                sign.setState(signObject.getInt("state"));
+                data.add(sign);
+            }
+            return data;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override
@@ -100,7 +134,6 @@ public class signActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.add_menu,menu);
         return super.onCreateOptionsMenu(menu);
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -116,5 +149,11 @@ public class signActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
         return true;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getData();
     }
 }

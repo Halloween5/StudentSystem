@@ -1,13 +1,17 @@
 package com.example.studentsystem.bean;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class leaveInfo {
+    private String id;
     private int classNum;
     private String name;
     private String reason;
-    private LocalDateTime from;
-    private LocalDateTime to;
+    private LocalDateTime time;
+    private LocalDate from;
+    private LocalDate to;
+    private int state;
 
     public int getClassNum() {
         return classNum;
@@ -33,19 +37,43 @@ public class leaveInfo {
         this.reason = reason;
     }
 
-    public LocalDateTime getFrom() {
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public LocalDateTime getTime() {
+        return time;
+    }
+
+    public void setTime(LocalDateTime time) {
+        this.time = time;
+    }
+
+    public LocalDate getFrom() {
         return from;
     }
 
-    public void setFrom(LocalDateTime from) {
+    public void setFrom(LocalDate from) {
         this.from = from;
     }
 
-    public LocalDateTime getTo() {
+    public LocalDate getTo() {
         return to;
     }
 
-    public void setTo(LocalDateTime to) {
+    public void setTo(LocalDate to) {
         this.to = to;
+    }
+
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
     }
 }

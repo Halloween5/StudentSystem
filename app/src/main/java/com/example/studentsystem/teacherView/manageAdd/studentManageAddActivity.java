@@ -18,7 +18,7 @@ public class studentManageAddActivity extends AppCompatActivity {
     private EditText classNum;
     private Spinner state;
     private EditText time;
-    private String[] stateList = getResources().getStringArray(R.array.state);
+    private String[] stateList;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +35,7 @@ public class studentManageAddActivity extends AppCompatActivity {
         classNum = findViewById(R.id.class_num);
         time = findViewById(R.id.time);
         state = findViewById(R.id.state);
+        stateList = getResources().getStringArray(R.array.state);
         state.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
